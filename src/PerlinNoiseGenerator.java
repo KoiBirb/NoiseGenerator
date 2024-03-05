@@ -9,7 +9,6 @@
  * purpose. Use it at your own risk. If there's a problem you get to fix it.
  *
  ****************************************************************************/
-
 import java.util.Random;
 
 /**
@@ -27,7 +26,7 @@ import java.util.Random;
  * @author Justin Couch
  * @version $Revision: 1.4 $
  */
-public class NoiseGenerator
+public class PerlinNoiseGenerator
 {
     // Constants for setting up the Perlin-1 noise functions
     private static final int B = 0x1000;
@@ -59,7 +58,7 @@ public class NoiseGenerator
     /**
      * Create a new noise creator with the default seed value
      */
-    public NoiseGenerator()
+    public PerlinNoiseGenerator()
     {
         this(DEFAULT_SEED);
     }
@@ -69,7 +68,7 @@ public class NoiseGenerator
      *
      * @param seed The seed value to use
      */
-    public NoiseGenerator(int seed)
+    public PerlinNoiseGenerator(int seed)
     {
         p_imp = new int[DEFAULT_SAMPLE_SIZE << 1];
 
@@ -138,7 +137,7 @@ public class NoiseGenerator
         double c8 = grad(p_imp[bb + 1], xo - 1, yo - 1, zo - 1);
 
         return lerp(w, lerp(v, lerp(u, c1, c2), lerp(u, c3, c4)),
-                lerp(v, lerp(u, c5, c6), lerp(u, c7, c8)));
+                       lerp(v, lerp(u, c5, c6), lerp(u, c7, c8)));
     }
 
     /**
@@ -220,7 +219,7 @@ public class NoiseGenerator
      */
     public float noise3(float x, float y, float z)
     {
-        float t = x + (float)N;
+    	float t = x + (float)N;
         int bx0 = ((int)t) & BM;
         int bx1 = (bx0 + 1) & BM;
         float rx0 = (float)(t - (int)t);
@@ -474,11 +473,11 @@ public class NoiseGenerator
         do
         {
             t += tileableNoise3(freq * x,
-                    freq * y,
-                    freq * z,
-                    w * freq,
-                    h * freq,
-                    d * freq) / freq;
+                                freq * y,
+                                freq * z,
+                                w * freq,
+                                h * freq,
+                                d * freq) / freq;
             freq *= 0.5f;
         }
         while (freq >= 1);
