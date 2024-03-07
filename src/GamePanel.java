@@ -3,12 +3,16 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
-        public final double scale = 0.07;
+        //noise variables
+        public double scale = 0.07;
+        public final double waterCutoff = 0;
+        public final double sandCutoff = 0.20;
+        public final double grassCutoff = 0.40;
+        public int tileSize = 2;
+        public int seed = (int) (Math.random() * 1000000);
 
-        public final int tileSize = 2;
         public final int screenWidth = 1024; // game screen width
         public final int screenHeight = 800; // game screen height
-        public int seed  = (int) (Math.random() * 1000000);
 
         int FPS = 60; // frames per second
 

@@ -9,14 +9,14 @@ public class MapGen {
         this.gp = gp;
         this.tileSize = gp.tileSize;
         this.scale = gp.scale;
-        this.width = (int) (gp.screenWidth/tileSize*1.5);
-        this.height = (int) (gp.screenHeight/tileSize*1.5);
+        this.width = gp.screenWidth/tileSize;
+        this.height = gp.screenHeight/tileSize;
     }
 
     double relativeXOffset, relativeYOffset, xTileOffset, yTileOffset, x, y;
 
     double speed = 5;
-    int buffer = 10;
+    int buffer = 0;
 
     int[] tiles;
 
@@ -64,13 +64,13 @@ public class MapGen {
 
     int getTile(int x, int y) {
         double v = gp.perlinNoiseGenerator.noise2((float)((xTileOffset + x) * scale), (float)((yTileOffset + y) * scale));
-        if(v < 0.05) {
+        if(v < gp.waterCutoff) {
             //water
             return 0;
-        } else if(v < 0.35) {
+        } else if(v < gp.sandCutoff){
             //sand
             return 1;
-        } else if(v < 0.5) {
+        } else if(v < gp.grassCutoff) {
             //grass
             return 2;
         } else {
